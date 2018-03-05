@@ -309,8 +309,15 @@ namespace MQTTnet.ManagedClient
 
             try
             {
-                await _mqttClient.SubscribeAsync(subscriptions).ConfigureAwait(false);
-                await _mqttClient.UnsubscribeAsync(unsubscriptions).ConfigureAwait(false);
+                if (subscriptions.Count > 0)
+                {
+                    await _mqttClient.SubscribeAsync(subscriptions).ConfigureAwait(false);
+                }
+
+                if (unsubscriptions.Count > 0)
+                {
+                    await _mqttClient.UnsubscribeAsync(unsubscriptions).ConfigureAwait(false);
+                }
             }
             catch (Exception exception)
             {
